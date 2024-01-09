@@ -35,10 +35,10 @@ $ yarn install
 
 ## Configuration
 
-Put this to `.env` file in a project root:
+Put this to `.env` file inside the project root directory:
 
 ```
-idk i don't remember everything
+idk i don't remember anythinh
 ```
 
 ## Firebase configuration
