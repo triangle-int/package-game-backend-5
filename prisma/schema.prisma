@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  firebaseId       String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+  geohashUpdatedAt DateTime @default(now())
+
+  nickname String  @unique
+  avatar   String
+  geohash  String
+  fcmToken String?
+  tutorial String?
+
+  money      BigInt
+  gems       BigInt
+  level      Int
+  experience BigInt
+
+  buildings       Building[]
+  trades          Trade[]
+  shoppingCart    InventoryItem[]
+  Truck           Truck[]
+  TruckSchedule   TruckSchedule[]
+  BetaAccessToken BetaAccessToken[]
+  ban             Ban?
+  boosters        Booster[]
+
+  @@map("users")
+}
+
+model Booster {
+  id     Int @id @default(autoincrement())
+  endsAt DateTime
+  type   String
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Ban {
+  id        Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  reason    String
+
+  userId Int @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Building {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  discriminator String
+  geohex        String @unique
+  geohash       String
+
+  currentResource    String?
+  resourceToUpgrade1 String?
+  resourceToUpgrade2 String?
+  resourceToUpgrade3 String?
+  enabled            Boolean  @default(false)
+  paymentDate        DateTime @default(now())
+  turnoffDate        DateTime @default(now())
+
+  commission Float?
+  level      Int?
+  ownerId    Int?
+  owner      User?           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  inventory  InventoryItem[]
+
+  startTrucks       Truck[] @relation(name: "startTrucks")
+  destinationTrucks Truck[] @relation(name: "destinationTrucks")
+
+  startSchedules       TruckSchedule[] @relation(name: "startSchedules")
+  destinationSchedules TruckSchedule[] @relation(name: "destinationSchedules")
+
+  @@index([geohash])
+  @@map("buildings")
+}
+
+model InventoryItem {
+  id Int @id @default(autoincrement())
+
+  name  String
+  count BigInt
+
+  buildingId Int?
+  building   Building? @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Trade {
+  id Int @id @default(autoincrement())
+
+  name         String
+  count        BigInt
+  pricePerUnit Int
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
+
+model Timeout {
+  id Int @id @default(autoincrement())
+
+  serverId  String
+  eventName String
+  params    String
+
+  executionTime DateTime
+}
+
+model Schedule {
+  id String @id @unique
+
+  serverId  String
+  eventName String
+  params    String
+
+  nextExecutionTime DateTime
+  interval          Int
+}
+
+model Truck {
+  id Int @id @default(autoincrement())
+
+  startTime DateTime
+  endTime   DateTime
+  path      String
+  truckType Int
+
+  resource      String
+  resourceCount BigInt
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  startBuilding Building? @relation(fields: [startId], references: [id], onDelete: SetNull, name: "startTrucks")
+  startId       Int?
+
+  destinationBuilding Building @relation(fields: [destinationId], references: [id], onDelete: Cascade, name: "destinationTrucks")
+  destinationId       Int
+
+  scheduleId Int?
+  schedule   TruckSchedule? @relation(fields: [scheduleId], references: [id])
+}
+
+model TruckSchedule {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  nextTime  DateTime
+
+  interval      Int
+  truckType     Int
+  resource      String
+  resourceCount Int
+  lastPath      String
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  startId Int
+  start   Building @relation(fields: [startId], references: [id], onDelete: Cascade, name: "startSchedules")
+
+  destinationId Int
+  destination   Building @relation(fields: [destinationId], references: [id], onDelete: Cascade, name: "destinationSchedules")
+
+  trucks Truck[]
+}
+
+model BetaAccessToken {
+  id    Int    @id @default(autoincrement())
+  token String
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

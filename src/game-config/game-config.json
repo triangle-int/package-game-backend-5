@@ -1,0 +1,611 @@
+{
+  "versions": ["1.1.0"],
+  "startMoney": 20000,
+  "startGems": 50,
+  "startLevel": 0,
+  "startExperience": 0,
+  "businessCosts": [
+    1000, 8, 82, 327, 876, 1884, 3522, 5983, 9471, 14205, 20422, 28367, 38299,
+    50491, 65223, 82795, 103504, 127670, 155609, 187679, 224200, 265546, 312075,
+    364148, 422170, 486523, 557599, 635843, 721642, 815406, 917625, 1028658,
+    1149065, 1279257, 1419639, 1570773, 1733141, 1907226, 2093443, 2292432,
+    2504622, 2697204, 2899413, 3111484, 3333652, 3566152, 3809217, 4063084,
+    4327987, 4604161, 4891840, 5191260, 5502655, 5826260, 6162310, 6511039,
+    6872683, 7247477, 7635654, 8037450, 8453100, 8882838, 9326900, 9785520,
+    10258933, 10747373, 11251076, 11770276, 12305209, 12856108, 13423210,
+    14006748, 14606957, 15224072, 15858329, 16509961, 17179204, 17866292,
+    18571461, 19294944, 20036978, 20797796, 21577634, 22376725, 23195306,
+    24033611, 24891875, 25770332, 26669217, 27588766, 28529213, 29490792,
+    30473739, 31478288, 32504674, 33553132, 34623898, 35717204, 36833287,
+    37972382, 39134722
+  ],
+  "businessLevelsPerResource": 10,
+  "factoryUpgradeCosts": [
+    150, 767, 1870, 3236, 4435, 4939, 4299, 2352, 5137, 10127, 14575, 17233,
+    17168, 14185, 14100, 24789, 34115, 39774, 40359, 36042, 39262, 56761, 70710,
+    77896, 77188, 70289, 90636, 114107, 129666, 134460, 129548, 142127, 175695,
+    200326, 211327, 209128, 217460, 261502, 295108, 311911
+  ],
+  "factoryResourcesPerMinute": [
+    92, 123, 145, 164, 181, 196, 209, 222, 234, 245, 256, 266, 276, 285, 294,
+    303, 312, 320, 328, 336, 344, 352, 359, 366, 374, 381, 388, 394, 401, 408,
+    414, 421, 427, 433, 440, 446, 452, 458, 464, 470, 475, 481, 487, 493, 498,
+    504, 509, 515, 520, 525, 531, 536, 541, 546, 552, 557, 562, 567, 572, 577,
+    582, 587, 592, 597, 601, 606, 611, 616, 621, 625, 630, 635, 639, 644, 649,
+    653, 658, 662, 667
+  ],
+  "storageCost": 100,
+  "factoryCost": 5000,
+  "factoryProductionCost": [
+    1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000,
+    13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000,
+    24000, 25000, 26000, 27000, 28000, 29000, 30000, 31000, 32000, 33000, 34000,
+    35000, 36000, 37000, 38000, 39000, 40000
+  ],
+  "buildingsCellLevel": 9,
+  "interactionRadiusKm": 300,
+  "tradesPerPage": 20,
+  "levelsForNextFactory": 10,
+  "storagesLimit": 2,
+  "levelsForNextStorage": 10,
+  "trucksCost": [0.125, 0.25, 8],
+  "truckCapacity": [50, 100, 200],
+  "truckSpeed": [5, 25, 125],
+  "planetRadius": 6371000,
+  "maxMarketDistance": 1000,
+  "marketGenerationDistance": 900,
+  "marketSearchHashLength": 5,
+  "minMarketCommission": 0.1,
+  "maxMarketCommission": 0.2,
+  "destinationsGehash": 4,
+  "factoryResourcesLimit": 100000,
+  "factoryStartResrources": 100,
+  "factoryLevelsPerResource": 5,
+  "scheduleInterval": [1, 6, 12],
+  "businessMoneyPerMinute": [
+    1, 3, 6, 10, 14, 20, 26, 33, 41, 50, 59, 69, 80, 91, 103, 116, 130, 144,
+    159, 174, 190, 207, 224, 242, 261, 280, 299, 320, 341, 362, 384, 407, 430,
+    454, 478, 503, 529, 555, 582, 609, 636, 665, 694, 723, 753, 783, 814, 846,
+    878, 911, 944, 977, 1011, 1046, 1081, 1117, 1153, 1190, 1227, 1265, 1303,
+    1342, 1381, 1421, 1462, 1502, 1544, 1585, 1628, 1670, 1714, 1758, 1802,
+    1847, 1892, 1937, 1984, 2030, 2078, 2125, 2173, 2222, 2271, 2321, 2371,
+    2421, 2472, 2524, 2575, 2628, 2681, 2734, 2788, 2842, 2897, 2952, 3008,
+    3064, 3120, 3177
+  ],
+  "businessFarmLimitHourds": 12,
+  "businessCountMultiplier": 0.5,
+  "businessAverageMultiplier": 2,
+  "businessTaxMultiplier": 0.01,
+  "expreienceForLevel": [
+    296, 1623, 3333, 3522, 388, 7390, 15343, 19646, 15985, 3089, 23425, 41929,
+    48970, 38193, 10398, 49641, 82299, 92434, 71816, 24602, 87768, 137970,
+    151639, 118756, 47987, 139703, 210695, 228389, 181025, 82837, 207434,
+    302348, 324597, 260695, 131432, 292999, 414884, 442248, 359877, 196052,
+    398473, 550307, 583373, 480709, 278978, 525956, 710660, 750039, 625349,
+    382486, 677566, 898012, 944337, 795968, 508854, 855436, 1114455, 1168379,
+    994749, 660359, 1061710, 1362098, 1424292, 1223886, 839277, 1298542,
+    1643063, 1714219, 1485578, 1047884, 1568093, 1959484, 2040310, 1782031,
+    1288454, 1872531, 2313505, 2404726, 2115456, 1563262, 2214029, 2707277,
+    2809636, 2488069, 1874583, 2594765, 3142960, 3257215, 2902088, 2224690,
+    3016921, 3622719, 3749642, 3359736, 2615856, 3482683, 4148723, 4289105,
+    3863238, 3050355, 3994240, 4723148, 4877792, 4414822, 3530460, 4553782,
+    5348173, 5517898, 5016717, 4058442, 5163505, 6025980, 6211620, 5671155,
+    4636575, 5825605, 6758757, 6961159, 6380370, 5267131, 6542280, 7548691,
+    7768717, 7146596, 5952380, 7315731, 8397976, 8636502, 7972070, 6694595,
+    8148159, 9308805, 9566720, 8859029, 7496047, 9041769, 10283376, 10561583,
+    9809712, 8359007, 9998766, 11323886, 11623301, 10826359, 9285746, 11021355,
+    12432537, 12754090, 11911210, 10278534
+  ],
+  "expForBusiness": 100,
+  "expForFactory": 500,
+  "expForBusinessUpgrade": 40,
+  "expForFactoryUpgrade": 500,
+  "expForTrade": 3,
+  "satelliteCosts": [2500, 10000, 300000],
+  "satelliteRadius": [2, 6, 9],
+  "anicheatMinDistance": 1000,
+  "anicheatMaxSpeed": 100,
+  "boosterTypes": {
+    "businessIncome": "businessIncomeBooster",
+    "priceDecrease": "priceDecreaseBooster",
+    "deliverySpeed": "deliverySpeedBooster",
+    "factoryProduction": "factoryProductionBooster"
+  },
+  "boosterPriceDecreaseFactor": 0.5,
+  "boosterIncomeFactor": 5,
+  "boosterTruckFactor": 0.25,
+  "boosterFactoryFactor": 5,
+  "boosterDuration": 24,
+  "minBusinessPerSattelite": 5,
+  "items": [
+    {
+      "name": "businessIncomeBooster",
+      "emoji": "📈",
+      "type": "booster",
+      "description": "{duration} booster that increases business income",
+      "price": 15
+    },
+    {
+      "name": "priceDecreaseBooster",
+      "emoji": "🤑",
+      "type": "booster",
+      "description": "{duration} booster that reduces the cost of shipping, building construction, building upgrades and factory fees",
+      "price": 15
+    },
+    {
+      "name": "deliverySpeedBooster",
+      "emoji": "🥾",
+      "type": "booster",
+      "description": "{duration} booster reducing delivery time",
+      "price": 15
+    },
+    {
+      "name": "factoryProductionBooster",
+      "emoji": "🏭",
+      "type": "booster",
+      "description": "{duration} booster that increases factory production speed",
+      "price": 15
+    },
+    {
+      "name": "wheel",
+      "type": "resource",
+      "color": "E1C989",
+      "emoji": "🛞",
+      "group": 1,
+      "level": 1
+    },
+    {
+      "name": "kick_scooter",
+      "type": "resource",
+      "color": "DEC37D",
+      "emoji": "🛴",
+      "group": 1,
+      "level": 2
+    },
+    {
+      "name": "motorized_wheelchair",
+      "type": "resource",
+      "color": "DBBE70",
+      "emoji": "🦼",
+      "group": 1,
+      "level": 3
+    },
+    {
+      "name": "scooter",
+      "type": "resource",
+      "color": "D8B864",
+      "emoji": "🛵",
+      "group": 1,
+      "level": 4
+    },
+    {
+      "name": "tractor",
+      "type": "resource",
+      "color": "D5B258",
+      "emoji": "🚜",
+      "group": 1,
+      "level": 5
+    },
+    {
+      "name": "mini_bus",
+      "type": "resource",
+      "color": "DDB241",
+      "emoji": "🚐",
+      "group": 1,
+      "level": 6
+    },
+    {
+      "name": "car",
+      "type": "resource",
+      "color": "EBB423",
+      "emoji": "🚗",
+      "group": 1,
+      "level": 7
+    },
+    {
+      "name": "race_car",
+      "type": "resource",
+      "color": "FFB905",
+      "emoji": "🏎",
+      "group": 1,
+      "level": 8
+    },
+    {
+      "name": "long_drum",
+      "type": "resource",
+      "color": "E19689",
+      "emoji": "🪘",
+      "group": 2,
+      "level": 1
+    },
+    {
+      "name": "drum",
+      "type": "resource",
+      "color": "DE8B7C",
+      "emoji": "🥁",
+      "group": 2,
+      "level": 2
+    },
+    {
+      "name": "piano",
+      "type": "resource",
+      "color": "DB8070",
+      "emoji": "🎹",
+      "group": 2,
+      "level": 3
+    },
+    {
+      "name": "accordion",
+      "type": "resource",
+      "color": "D87564",
+      "emoji": "🪗",
+      "group": 2,
+      "level": 4
+    },
+    {
+      "name": "saxophone",
+      "type": "resource",
+      "color": "D56A58",
+      "emoji": "🎷",
+      "group": 2,
+      "level": 5
+    },
+    {
+      "name": "trumpet",
+      "type": "resource",
+      "color": "D2604B",
+      "emoji": "🎺",
+      "group": 2,
+      "level": 6
+    },
+    {
+      "name": "violin",
+      "type": "resource",
+      "color": "D74F38",
+      "emoji": "🎻",
+      "group": 2,
+      "level": 7
+    },
+    {
+      "name": "guitar",
+      "type": "resource",
+      "color": "E53D1F",
+      "emoji": "🎸",
+      "group": 2,
+      "level": 8
+    },
+    {
+      "name": "mail",
+      "type": "resource",
+      "color": "BF8DDD",
+      "emoji": "✉️",
+      "group": 3,
+      "level": 1
+    },
+    {
+      "name": "radio",
+      "type": "resource",
+      "color": "B982D9",
+      "emoji": "📻",
+      "group": 3,
+      "level": 2
+    },
+    {
+      "name": "telephone",
+      "type": "resource",
+      "color": "B276D6",
+      "emoji": "☎️",
+      "group": 3,
+      "level": 3
+    },
+    {
+      "name": "tv",
+      "type": "resource",
+      "color": "AC6AD2",
+      "emoji": "📺",
+      "group": 3,
+      "level": 4
+    },
+    {
+      "name": "pager",
+      "type": "resource",
+      "color": "A65BD2",
+      "emoji": "📟",
+      "group": 3,
+      "level": 5
+    },
+    {
+      "name": "printer",
+      "type": "resource",
+      "color": "A342DB",
+      "emoji": "🖨",
+      "group": 3,
+      "level": 6
+    },
+    {
+      "name": "computer",
+      "type": "resource",
+      "color": "A125EA",
+      "emoji": "🖥",
+      "group": 3,
+      "level": 7
+    },
+    {
+      "name": "phone",
+      "type": "resource",
+      "color": "A205FF",
+      "emoji": "📱",
+      "group": 3,
+      "level": 8
+    },
+    {
+      "name": "ring_buoy",
+      "type": "resource",
+      "color": "89B9E1",
+      "emoji": "🛟",
+      "group": 4,
+      "level": 1
+    },
+    {
+      "name": "rowboat",
+      "type": "resource",
+      "color": "7CB1DE",
+      "emoji": "🚣‍♂️",
+      "group": 4,
+      "level": 2
+    },
+    {
+      "name": "sailboat",
+      "type": "resource",
+      "color": "70AADB",
+      "emoji": "⛵️",
+      "group": 4,
+      "level": 3
+    },
+    {
+      "name": "motor_boat",
+      "type": "resource",
+      "color": "64A3D8",
+      "emoji": "🛥",
+      "group": 4,
+      "level": 4
+    },
+    {
+      "name": "speedboat",
+      "type": "resource",
+      "color": "589BD5",
+      "emoji": "🚤",
+      "group": 4,
+      "level": 5
+    },
+    {
+      "name": "ferry",
+      "type": "resource",
+      "color": "4B94D2",
+      "emoji": "⛴",
+      "group": 4,
+      "level": 6
+    },
+    {
+      "name": "passenger_ship",
+      "type": "resource",
+      "color": "388ED7",
+      "emoji": "🛳",
+      "group": 4,
+      "level": 7
+    },
+    {
+      "name": "ship",
+      "type": "resource",
+      "color": "1F8AE5",
+      "emoji": "🚢",
+      "group": 4,
+      "level": 8
+    },
+    {
+      "name": "wheat",
+      "type": "resource",
+      "color": "89E1A0",
+      "emoji": "🌾",
+      "group": 5,
+      "level": 1
+    },
+    {
+      "name": "flatbread",
+      "type": "resource",
+      "color": "7DDE96",
+      "emoji": "🫓",
+      "group": 5,
+      "level": 2
+    },
+    {
+      "name": "bread",
+      "type": "resource",
+      "color": "70DB8C",
+      "emoji": "🍞",
+      "group": 5,
+      "level": 3
+    },
+    {
+      "name": "croissant",
+      "type": "resource",
+      "color": "64D882",
+      "emoji": "🥐",
+      "group": 5,
+      "level": 4
+    },
+    {
+      "name": "sandwich",
+      "type": "resource",
+      "color": "58D579",
+      "emoji": "🥪",
+      "group": 5,
+      "level": 5
+    },
+    {
+      "name": "pizza",
+      "type": "resource",
+      "color": "41DD6A",
+      "emoji": "🍕",
+      "group": 5,
+      "level": 6
+    },
+    {
+      "name": "cupcake",
+      "type": "resource",
+      "color": "23EB58",
+      "emoji": "🧁",
+      "group": 5,
+      "level": 7
+    },
+    {
+      "name": "moon_cake",
+      "type": "resource",
+      "color": "05FF47",
+      "emoji": "🥮",
+      "group": 5,
+      "level": 8
+    }
+  ],
+  "avatars": [
+    "🤔",
+    "🙃",
+    "😀",
+    "🤓",
+    "🥸",
+    "😑",
+    "🤡",
+    "🤮",
+    "😷",
+    "😂",
+    "😊",
+    "😴",
+    "🥰",
+    "🤪",
+    "🤐",
+    "🤩",
+    "🥳",
+    "🤑",
+    "🥺",
+    "🥷",
+    "👳‍♂️",
+    "👳‍♀️",
+    "🧕",
+    "👨‍💻",
+    "👩‍💻",
+    "🤖",
+    "👽",
+    "👻",
+    "👺",
+    "😈",
+    "☠️",
+    "💩",
+    "🎃",
+    "🦊",
+    "🐱",
+    "😹",
+    "🐵",
+    "🐷",
+    "🐗",
+    "🐻‍❄️",
+    "🐰",
+    "🐭",
+    "🐨",
+    "🐧",
+    "🦉",
+    "🐸",
+    "🐢",
+    "🐌",
+    "🦀",
+    "🐐",
+    "🐶"
+  ],
+  "businessEmoji": {
+    "1": "🛖",
+    "5": "🏚",
+    "10": "🏠",
+    "15": "🏡",
+    "20": "🏘️",
+    "25": "🏨",
+    "30": "🏛️",
+    "35": "🏰",
+    "40": "🏯",
+    "45": "🛝",
+    "50": "🎠",
+    "55": "🎪",
+    "60": "🎡",
+    "65": "🏟️",
+    "70": "⛽",
+    "75": "🚁",
+    "80": "🚀",
+    "85": "🛸",
+    "90": "🪐",
+    "95": "🗿",
+    "100": "🗽"
+  },
+  "storeItems": {
+    "gems": [
+      {
+        "type": "iap",
+        "id": "com.triangle_interactive.package.gems_20",
+        "icon": "💎",
+        "amount": 20,
+        "isConsumable": true
+      },
+      {
+        "type": "iap",
+        "id": "com.triangle_interactive.package.gems_60",
+        "icon": "💎",
+        "amount": 60,
+        "isConsumable": true
+      },
+      {
+        "type": "iap",
+        "id": "com.triangle_interactive.package.gems_150",
+        "icon": "💎",
+        "amount": 150,
+        "isConsumable": true
+      },
+      {
+        "type": "iap",
+        "id": "com.triangle_interactive.package.gems_300",
+        "icon": "💎",
+        "amount": 300,
+        "isConsumable": true
+      },
+      {
+        "type": "iap",
+        "id": "com.triangle_interactive.package.gems_600",
+        "icon": "💎",
+        "amount": 600,
+        "isConsumable": true
+      }
+    ],
+    "boosters": [
+      {
+        "type": "booster",
+        "name": "deliverySpeedBooster",
+        "amount": 1,
+        "price": "15 💎"
+      },
+      {
+        "type": "booster",
+        "name": "priceDecreaseBooster",
+        "amount": 1,
+        "price": "15 💎"
+      },
+      {
+        "type": "booster",
+        "name": "businessIncomeBooster",
+        "amount": 1,
+        "price": "15 💎"
+      },
+      {
+        "type": "booster",
+        "name": "factoryProductionBooster",
+        "amount": 1,
+        "price": "15 💎"
+      }
+    ]
+  }
+}

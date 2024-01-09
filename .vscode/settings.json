@@ -1,0 +1,12 @@
+{
+  "cSpell.words": ["geohash", "ngeohash"],
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "material-icon-theme.activeIconPack": "nest",
+  "editor.wordBasedSuggestions": true
+}
