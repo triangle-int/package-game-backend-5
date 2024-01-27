@@ -1,10 +1,33 @@
-version: '3.0'
+version: '3'
+
 services:
-  dev-db:
-    image: postgres:13
-    environment:
-      - POSTGRES_USER=dev
-      - POSTGRES_PASSWORD=dev
-      - POSTGRES_DB=package
+  package-server:
+    build: .
+    env_file: .env
     ports:
-      - '5434:5432'
+      - '3000:3000'
+    depends_on:
+      package-db:
+        condition: service_healthy
+    networks:
+      - package
+
+  package-db:
+    image: postgres:13
+    networks:
+      package:
+        aliases:
+          - 'db'
+    environment:
+      - POSTGRES_USER=package
+      - POSTGRES_PASSWORD=package
+      - POSTGRES_DB=package
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U package']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  package:
+    driver: bridge
