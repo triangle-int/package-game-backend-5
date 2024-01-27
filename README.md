@@ -38,29 +38,29 @@ $ yarn install
 The server needs these environment variables to run (they can be placed in `.env` file):
 
 | Key name | Description |
---------------------------
+---------- | -----------
 | `DATABASE_URL` | database url (`"postgresql://dev:dev@localhost:5434/package?schema=public"` if we're using our local docker database)
---------------------------
+---------------- | -----------
 | `RUN_DISCORD` | `"yes"` if you want to run administration discord bot, `"no"` otherwise
---------------------------
+--------------- | ------------
 | `RUN_METRICS` | `"yes"` if idk, `"no"` otherwise
---------------------------
+--------------- | ------------
 | `DISCORD_TOKEN` | discord administration bot token
---------------------------
+----------------- | ----------
 | `DISCORD_CLIENT_ID` | another magical discord token
---------------------------
+--------------------- | ------
 | `TEST_ACCOUNT_EMAIL` | firebase testing account email
---------------------------
+---------------------- | -----
 | `TEST_ACCOUNT_PASSWORD` | freibase testing account password
---------------------------
+------------------------- | --
 | `MAPBOX_TOKEN` | mapbox token for discord previews
---------------------------
+------------------------- | --
 | `SERVER_ID` | unique server id for the tasks database
---------------------------
+------------------------- | --
 | `ADMIN_PASSWORD` | password for accessing admin requests
---------------------------
+------------------------- | --
 | `PORT` | port
---------------------------
+------------------------- | --
 
 ## Firebase configuration
 
