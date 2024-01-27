@@ -10,7 +10,7 @@ import {
 } from './dto';
 import { GameConfigService } from '../game-config/game-config.service';
 import * as ngeohash from 'ngeohash';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { UserService } from '../user/user.service';
 import _ from 'lodash';
 import { MathService } from '../math/math.service';
