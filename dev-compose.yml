@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  dev-db:
+    image: postgres:16-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=package
+      - POSTGRES_PASSWORD=package
+      - POSTGRES_DB=package
