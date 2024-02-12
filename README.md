@@ -4,7 +4,8 @@ This repository contains full source code for the backend part of the package ga
 
 # About
 
-imo this section should contain info about the game
+`// TODO:` Add some info about the game.
+Official telegram channel: https://t.me/packagegame
 
 # Deployment
 
