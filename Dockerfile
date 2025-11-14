@@ -5,9 +5,9 @@ WORKDIR /app
 # Copy all the necessary stuff
 COPY src/ prisma/ package.json yarn.lock tsconfig.json tsconfig.build.json ./
 
-RUN yarn install
-RUN yarn prisma generate
-RUN yarn build
+RUN pnpm install
+RUN pnpm prisma generate
+RUN pnpm build
 
-CMD ["/bin/sh", "-c", "yarn prisma migrate deploy; yarn start:prod"]
+CMD ["/bin/sh", "-c", "pnpm prisma migrate deploy; pnpm start:prod"]
 EXPOSE $PORT

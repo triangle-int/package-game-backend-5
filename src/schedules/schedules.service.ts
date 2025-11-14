@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Schedule } from '@prisma/client';
+import { Schedule } from 'prisma/app/generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { EventEmitter2 } from '@nestjs/event-emitter';

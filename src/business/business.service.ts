@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User } from 'prisma/app/generated/prisma/client';
 import { InventoryService } from '../inventory/inventory.service';
 import { GameConfigService } from '../game-config/game-config.service';
 import { PrismaService } from '../prisma/prisma.service';
@@ -21,15 +21,18 @@ export class BusinessService {
   ) {}
 
   async getUserTax(userId: number) {
-    const { _count, _avg } = await this.prisma.building.aggregate({
+    const count = await this.prisma.building.count({
       where: { ownerId: userId, discriminator: 'business' },
-      _count: { id: true },
+    });
+
+    const { _avg } = await this.prisma.building.aggregate({
+      where: { ownerId: userId, discriminator: 'business' },
       _avg: { level: true },
     });
 
     return Math.max(
       0,
-      (_count.id * this.config.config.businessCountMultiplier -
+      (count * this.config.config.businessCountMultiplier -
         _avg.level * this.config.config.businessAverageMultiplier) *
         this.config.config.businessTaxMultiplier,
     );

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from '@prisma/client';
+import { User } from 'prisma/app/generated/prisma/client';
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import {
   CalculatePathDto,

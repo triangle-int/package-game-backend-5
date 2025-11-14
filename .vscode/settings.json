@@ -8,5 +8,8 @@
   },
   "typescript.preferences.importModuleSpecifier": "relative",
   "material-icon-theme.activeIconPack": "nest",
-  "editor.wordBasedSuggestions": "matchingDocuments"
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json": "file:///Users/p5ina/projects/web/package-game-backend-5/dev-compose.yml"
+  }
 }

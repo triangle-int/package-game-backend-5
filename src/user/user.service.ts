@@ -10,7 +10,7 @@ import {
 } from './dto';
 import * as ngeohash from 'ngeohash';
 import { FirebaseClientService } from '../firebase-client/firebase-client.service';
-import { User } from '@prisma/client';
+import { User } from 'prisma/app/generated/prisma/client';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { NotificationsService } from '../notifications/notifications.service';

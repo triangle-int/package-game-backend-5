@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from '@prisma/client';
+import { User } from 'prisma/app/generated/prisma/client';
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import { GetMarketDto } from './dto';
 import { MarketService } from './market.service';

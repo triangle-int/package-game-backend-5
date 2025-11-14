@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Timeout } from '@prisma/client';
+import { Timeout } from 'prisma/app/generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()

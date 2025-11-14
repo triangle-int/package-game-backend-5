@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { ApplePaymentDto } from './dto/apple.dto';
 import { GooglePaymentDto } from './dto/google.dto';
 import { IAPService } from '@jeremybarbet/nest-iap';
-import { User } from '@prisma/client';
+import { User } from 'prisma/app/generated/prisma/client';
 import { GameConfigService } from '../game-config/game-config.service';
 import { UserService } from '../user/user.service';
 import _ from 'lodash';
