@@ -219,6 +219,7 @@ export class TruckService {
     this.updates.sendUserUpdate(user.id);
     this.tasks.addTimeout(endTime, 'truckArrived', truck.id);
     this.notifications.sendTruckCreation(truck);
+    this.updates.sendTruckCreation(truck);
     return truck;
   }
 
@@ -251,6 +252,7 @@ export class TruckService {
       this.updates.sendUserUpdate(truck.ownerId);
 
     this.notifications.sendTruckArrived(truck, truck.owner);
+    this.updates.sendTruckArrived(truck);
   }
 
   @OnEvent('truckSchedule')

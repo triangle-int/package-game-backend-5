@@ -56,4 +56,18 @@ export class UpdatesGateway implements OnModuleInit {
       }
     }
   }
+
+  sendBroadcast(channel: string, data: any) {
+    const payload = JSON.stringify({
+      channel,
+      data: bigintToString(data),
+    });
+
+    for (const [socket] of this.sockets.entries()) {
+      if (socket.readyState === 1) {
+        // OPEN
+        socket.send(payload);
+      }
+    }
+  }
 }
