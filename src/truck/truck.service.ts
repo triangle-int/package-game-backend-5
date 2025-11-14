@@ -97,9 +97,7 @@ export class TruckService {
 
     const costPerTruck = await this.boosters.getBoostedCost(
       user.id,
-      Math.ceil(
-        distance * this.gameConfig.config.trucksCost[dto.truckType],
-      ),
+      Math.ceil(distance * this.gameConfig.config.trucksCost[dto.truckType]),
     );
 
     const cost =
@@ -221,6 +219,7 @@ export class TruckService {
     this.updates.sendUserUpdate(user.id);
     this.tasks.addTimeout(endTime, 'truckArrived', truck.id);
     this.notifications.sendTruckCreation(truck);
+    this.updates.sendTruckCreation(truck);
     return truck;
   }
 
@@ -253,6 +252,7 @@ export class TruckService {
       this.updates.sendUserUpdate(truck.ownerId);
 
     this.notifications.sendTruckArrived(truck, truck.owner);
+    this.updates.sendTruckArrived(truck);
   }
 
   @OnEvent('truckSchedule')

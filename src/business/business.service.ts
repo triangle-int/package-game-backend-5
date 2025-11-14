@@ -21,15 +21,18 @@ export class BusinessService {
   ) {}
 
   async getUserTax(userId: number) {
-    const { _count, _avg } = await this.prisma.building.aggregate({
+    const count = await this.prisma.building.count({
       where: { ownerId: userId, discriminator: 'business' },
-      _count: { id: true },
+    });
+
+    const { _avg } = await this.prisma.building.aggregate({
+      where: { ownerId: userId, discriminator: 'business' },
       _avg: { level: true },
     });
 
     return Math.max(
       0,
-      (_count.id * this.config.config.businessCountMultiplier -
+      (count * this.config.config.businessCountMultiplier -
         _avg.level * this.config.config.businessAverageMultiplier) *
         this.config.config.businessTaxMultiplier,
     );

@@ -33,4 +33,12 @@ export class UpdatesService {
   isOnline(firebaseId: string) {
     return this.gateway.isOnline(firebaseId);
   }
+
+  sendTruckCreation(truck: any) {
+    this.gateway.sendBroadcast('truckCreated', truck);
+  }
+
+  sendTruckArrived(truck: any) {
+    this.gateway.sendBroadcast('truckArrived', truck);
+  }
 }
