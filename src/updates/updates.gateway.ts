@@ -16,7 +16,7 @@ export class UpdatesGateway implements OnModuleInit {
   }
 
   onModuleInit() {
-    this.wss = new WebSocketServer({ port: 3002 });
+    this.wss = new WebSocketServer({ port: parseInt(process.env.WS_PORT) });
 
     this.wss.on('connection', async (ws: any, req: IncomingMessage) => {
       // Получаем токен из query параметров

@@ -3,7 +3,8 @@ services:
     build: .
     env_file: .env
     ports:
-      - '3000:3000'
+      - '$PORT:$PORT'
+      - '$WS_PORT:$WS_PORT'
     depends_on:
       package-db:
         condition: service_healthy

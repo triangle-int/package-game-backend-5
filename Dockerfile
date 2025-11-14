@@ -14,4 +14,5 @@ RUN pnpm prisma generate
 RUN pnpm build
 
 EXPOSE $PORT
+EXPOSE $WS_PORT
 CMD ["/bin/sh", "-c", "pnpm prisma migrate deploy; pnpm start:prod"]
