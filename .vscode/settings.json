@@ -8,5 +8,5 @@
   },
   "typescript.preferences.importModuleSpecifier": "relative",
   "material-icon-theme.activeIconPack": "nest",
-  "editor.wordBasedSuggestions": true
+  "editor.wordBasedSuggestions": "matchingDocuments"
 }
