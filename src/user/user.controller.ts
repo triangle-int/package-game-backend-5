@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { FirebaseUser } from '@tfarras/nestjs-firebase-auth';
 import { Request } from 'express';
 import { AdminGuard } from '../helpers/guard/admin.guard';

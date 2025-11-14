@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { Building, User } from 'prisma/app/generated/prisma/client';
+import { Building, User } from '@prisma/client';
 import { GameConfigService } from '../game-config/game-config.service';
 import { CollectMoneyDto } from './dto';
 import { MathService } from '../math/math.service';

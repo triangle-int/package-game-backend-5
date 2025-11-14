@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Messaging } from 'firebase-admin/lib/messaging/messaging';
-import { Truck, User } from 'prisma/app/generated/prisma/client';
+import { Truck, User } from '@prisma/client';
 import { GameConfigService } from '../game-config/game-config.service';
 import { FirebaseAdmin, InjectFirebaseAdmin } from 'nestjs-firebase';
 import { bigintToString } from '../helpers/interceptor/big-int.interceptor';

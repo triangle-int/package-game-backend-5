@@ -2,7 +2,7 @@ import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { InventoryService } from './inventory.service';
 import { GetUser } from '../auth/decorator/get-user.decorator';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Inventory')

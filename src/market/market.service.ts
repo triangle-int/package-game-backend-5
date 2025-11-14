@@ -3,7 +3,7 @@ import { GameConfigService } from '../game-config/game-config.service';
 import { MathService } from '../math/math.service';
 import { PrismaService } from '../prisma/prisma.service';
 import _ from 'lodash';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { GetMarketDto } from './dto';
 import * as ngeohash from 'ngeohash';
 

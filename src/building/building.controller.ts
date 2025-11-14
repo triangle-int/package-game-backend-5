@@ -9,7 +9,7 @@ import {
   GetStorageDto,
 } from './dto';
 import { GetUser } from '../auth/decorator/get-user.decorator';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
 

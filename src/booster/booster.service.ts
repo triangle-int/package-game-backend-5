@@ -7,7 +7,7 @@ import {
 import { GameConfigService } from '../game-config/game-config.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ActivateBoosterDto } from './dto';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { InventoryService } from '../inventory/inventory.service';
 import { UpdatesService } from '../updates/updates.service';
 

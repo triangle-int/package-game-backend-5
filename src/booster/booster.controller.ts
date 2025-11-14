@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { BoosterService } from './booster.service';
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import { ActivateBoosterDto } from './dto';

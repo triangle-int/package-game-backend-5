@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { InventoryService } from '../inventory/inventory.service';
 import { GameConfigService } from '../game-config/game-config.service';
 import { PrismaService } from '../prisma/prisma.service';

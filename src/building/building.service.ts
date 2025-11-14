@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { Building, User } from 'prisma/app/generated/prisma/client';
+import { Building, User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   CreateBuildingDto,

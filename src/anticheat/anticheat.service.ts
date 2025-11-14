@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { DiscordService } from '../discord/discord.service';
 import { GameConfigService } from '../game-config/game-config.service';
 import { Coords, MathService } from '../math/math.service';

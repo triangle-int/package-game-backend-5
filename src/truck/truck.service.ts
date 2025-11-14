@@ -12,7 +12,7 @@ import { CalculatePathDto, RemoveTruckScheduleDto } from './dto';
 import ngeohash from 'ngeohash';
 import { HttpService } from '@nestjs/axios';
 import { CreateTruckDto } from './dto';
-import { User } from 'prisma/app/generated/prisma/client';
+import { User } from '@prisma/client';
 import { TaskService } from '../task/task.service';
 import _ from 'lodash';
 import { OnEvent } from '@nestjs/event-emitter';
