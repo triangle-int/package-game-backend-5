@@ -3,7 +3,7 @@ FROM node:18
 WORKDIR /app
 
 # Copy all the necessary stuff
-COPY src/ prisma/ package.json pnpm-lock.yaml pnpm-workspace.yml tsconfig.json tsconfig.build.json ./
+COPY src/ prisma/ package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json tsconfig.build.json ./
 
 RUN pnpm install
 RUN pnpm prisma generate
