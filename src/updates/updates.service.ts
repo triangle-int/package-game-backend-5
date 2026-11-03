@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Truck } from '@prisma/client';
 import { InventoryService } from '../inventory/inventory.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdatesGateway } from './updates.gateway';
@@ -34,11 +35,16 @@ export class UpdatesService {
     return this.gateway.isOnline(firebaseId);
   }
 
-  sendTruckCreation(truck: any) {
+  sendTruckCreation(truck: Truck) {
     this.gateway.sendBroadcast('truckCreated', truck);
   }
 
-  sendTruckArrived(truck: any) {
-    this.gateway.sendBroadcast('truckArrived', truck);
+  sendTruckArrived(truck: Pick<Truck, 'id' | 'ownerId'>) {
+    // Arrival only needs an ID; the caller also loaded the owner's private
+    // account and notification details to process the delivery.
+    this.gateway.sendBroadcast('truckArrived', {
+      id: truck.id,
+      ownerId: truck.ownerId,
+    });
   }
 }

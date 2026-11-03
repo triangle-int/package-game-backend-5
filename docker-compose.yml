@@ -1,7 +1,10 @@
 services:
   package-server:
     build: .
-    env_file: .env
+    env_file: ${PACKAGE_ENV_FILE:-.env}
+    environment:
+      NODE_ENV: production
+      ENABLE_DEV_LOGIN: 'false'
     ports:
       - '$PORT:$PORT'
       - '$WS_PORT:$WS_PORT'

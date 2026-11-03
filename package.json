@@ -24,8 +24,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "pretest:e2e": "dotenv -e .env.test yarn db:dev:restart",
-    "test:e2e": "jest --no-cache --config ./test/jest-e2e.json --forceExit"
+    "test:e2e": "bash scripts/test-e2e.sh"
   },
   "dependencies": {
     "@jeremybarbet/nest-iap": "^1.4.0",
@@ -110,7 +109,8 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.(t|j)s",
+      "!**/*.spec.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

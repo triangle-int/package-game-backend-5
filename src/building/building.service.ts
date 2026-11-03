@@ -58,6 +58,13 @@ export class BuildingService {
             updatedAt: true,
             enabled: true,
             resourceToUpgrade1: true,
+            owner: {
+              select: {
+                id: true,
+                nickname: true,
+                avatar: true,
+              },
+            },
           },
         })),
       );

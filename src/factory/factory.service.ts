@@ -43,22 +43,18 @@ export class FactoryService {
 
     if (factory == null) throw new ForbiddenException('factoryNotFound');
 
-    const [, , result] = await Promise.all([
-      this.prisma.building.update({
-        where: { id: factory.id },
-        data: {
-          currentResource: dto.resource,
-        },
-      }),
-      this.inventoryService.addToInventory(
-        dto.resource,
-        BigInt(this.config.config.factoryStartResrources),
-        factory.id,
-      ),
-      this.toggleFactory({ factoryId: factory.id, state: true }, user),
-    ]);
-
-    return result;
+    await this.prisma.building.update({
+      where: { id: factory.id },
+      data: {
+        currentResource: dto.resource,
+      },
+    });
+    await this.inventoryService.addToInventory(
+      dto.resource,
+      BigInt(this.config.config.factoryStartResrources),
+      factory.id,
+    );
+    return this.toggleFactory({ factoryId: factory.id, state: true }, user);
   }
 
   async toggleFactory(dto: ToggleFactoryDto, user: User) {
@@ -82,7 +78,7 @@ export class FactoryService {
           (factory.turnoffDate.getTime() - factory.paymentDate.getTime()),
       );
 
-      this.schedules.addSchedule(
+      await this.schedules.addSchedule(
         nextPaymentDate,
         'factoryPayment',
         `factoryPayment_${factory.id}`,
@@ -92,18 +88,15 @@ export class FactoryService {
 
       return await this.prisma.building.update({
         where: { id: factory.id },
-        data: { enabled: true },
+        data: { enabled: true, updatedAt: now },
       });
     } else {
-      this.schedules.removeSchedule(`factoryPayment_${factory.id}`);
-
-      const [, updatedFactory] = await Promise.all([
-        this.updateFactoryInventory(factory.id),
-        this.prisma.building.update({
-          where: { id: factory.id },
-          data: { turnoffDate: now, enabled: false },
-        }),
-      ]);
+      await this.schedules.removeSchedule(`factoryPayment_${factory.id}`);
+      await this.updateFactoryInventory(factory.id);
+      const updatedFactory = await this.prisma.building.update({
+        where: { id: factory.id },
+        data: { turnoffDate: now, enabled: false },
+      });
 
       return updatedFactory;
     }

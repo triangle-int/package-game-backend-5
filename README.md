@@ -1,83 +1,54 @@
-# Package Game Backend
+# Package Game · Server
 
-This repository contains full source code for the backend part of the package game.
+The server for **Package**, a multiplayer GPS game about building factories, trading resources, and delivering goods on a shared map. Provides the game API and live updates for connected players.
 
-# About
+[Client](https://github.com/triangle-int/package-game-frontend) · [Telegram](https://t.me/packagegame)
 
-`// TODO:` Add some info about the game.
-Official telegram channel: https://t.me/packagegame
+## Stack
 
-# Deployment
+- **TypeScript / NestJS** — HTTP API, WebSocket updates, and scheduled tasks.
+- **PostgreSQL / Prisma** — game data and migrations.
+- **Firebase Admin** — authentication; **Firebase Messaging** — push notifications.
+- **Docker Compose** — local server and database.
 
-## Requirements
+## Getting started
 
-In order to launch this abomination you need to have these things installed:
-
-- docker for the database
-- node v18
-- yarn
-- firebase project to attach this thing to
-
-## Deploying the database
-
-The easiest way to deploy the database locally is to use docker. This is actually the only part we need docker for. Use this command to start container with the database:
+You need Docker with Compose v2 and Make. The development stack runs inside Docker, including database migrations.
 
 ```bash
-$ docker compose up -d
+cp .env.example .env
 ```
 
-## Installing dependencies
+Review [.env.example](.env.example), set `SERVER_ID` and `ADMIN_PASSWORD`, and configure Firebase for your environment:
 
-We use yarn for our dependencies management. To install dependencies (dev deps included) use this command:
+- `src/serviceAccount.json` — Firebase Admin service account.
+- `src/firebase-client/firebase-client-config.json` — Firebase client configuration.
+
+Keep private credentials out of version control. Optional integrations are listed in `.env.example`.
 
 ```bash
-$ yarn install
+make dev
 ```
 
-## Environment variables
+| Service          | Local address               |
+| ---------------- | --------------------------- |
+| HTTP API         | `http://127.0.0.1:3005`     |
+| Swagger API docs | `http://127.0.0.1:3005/api` |
+| WebSocket        | `ws://127.0.0.1:3006`       |
+| PostgreSQL       | `127.0.0.1:5439`            |
 
-The server needs these environment variables to run (they can be placed in `.env` file):
+The dev stack enables temporary Dev Login for the client. Use `DEV_BIND_ADDRESS=<lan-ip> make dev` to connect from a physical iPhone on the same network. `make stop` stops the containers and preserves the database.
 
-| Key name | Description |
----------- | -----------
-| `DATABASE_URL` | database url (`"postgresql://dev:dev@localhost:5434/package?schema=public"` if we're using our local docker database)
-| `RUN_DISCORD` | `"yes"` if you want to run administration discord bot, `"no"` otherwise
-| `RUN_METRICS` | `"yes"` if idk, `"no"` otherwise
-| `DISCORD_TOKEN` | discord administration bot token
-| `DISCORD_CLIENT_ID` | another magical discord token
-| `TEST_ACCOUNT_EMAIL` | firebase testing account email
-| `TEST_ACCOUNT_PASSWORD` | freibase testing account password
-| `MAPBOX_TOKEN` | mapbox token for discord previews
-| `SERVER_ID` | unique server id for the tasks database
-| `ADMIN_PASSWORD` | password for accessing admin requests
-| `PORT` | port
+## Tests
 
-## Firebase configuration
-
-This is the neat part. I don't remember what and where needs to be placed.
-
-## Launching
+For commands outside Docker, use Node.js 24 and pnpm 11, matching the [Dockerfile](Dockerfile).
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+pnpm install --frozen-lockfile
+pnpm prisma generate
+make test-unit
+make test-e2e
+make test-coverage
 ```
 
-## Running tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+E2E tests require Docker and use a disposable database. `make test` runs all checks above.
