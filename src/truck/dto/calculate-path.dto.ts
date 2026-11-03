@@ -1,22 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, Max, Min } from 'class-validator';
+import { IsInt, Max, Min } from 'class-validator';
 
 export class CalculatePathDto {
-  @ApiProperty({ example: 0, description: 'Start building ID' })
-  @IsNumber()
+  @ApiProperty({ example: 1, description: 'Start building ID' })
+  @IsInt()
+  @Min(1)
   aId: number;
 
-  @ApiProperty({ example: 1, description: 'End building ID' })
-  @IsNumber()
+  @ApiProperty({ example: 2, description: 'End building ID' })
+  @IsInt()
+  @Min(1)
   bId: number;
 
   @ApiProperty({ example: 1, description: 'Truck type' })
-  @IsNumber()
+  @IsInt()
   @Max(2)
   @Min(0)
   truckType: number;
 
   @ApiProperty({ example: 100, description: 'Resource count' })
-  @IsNumber()
+  @IsInt()
+  @Min(1)
+  @Max(2147483647)
   resourceCount: number;
 }

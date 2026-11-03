@@ -4,6 +4,7 @@ import { IncomingMessage } from 'http';
 import { FirebaseAdmin, InjectFirebaseAdmin } from 'nestjs-firebase';
 import { Auth } from 'firebase-admin/lib/auth/auth';
 import { bigintToString } from '../helpers/interceptor/big-int.interceptor';
+import { getDevUserId, isDevLoginAllowed } from '../auth/dev-login';
 
 @Injectable()
 export class UpdatesGateway implements OnModuleInit {
@@ -24,7 +25,13 @@ export class UpdatesGateway implements OnModuleInit {
       const token = url.searchParams.get('token');
 
       try {
-        const uid = (await this.auth.verifyIdToken(token)).uid;
+        if (token?.startsWith('dev_token') && !isDevLoginAllowed(token)) {
+          ws.close(1008, 'Unauthorized');
+          return;
+        }
+        const uid = isDevLoginAllowed(token)
+          ? getDevUserId(token)
+          : (await this.auth.verifyIdToken(token)).uid;
         this.sockets.set(ws, uid);
 
         ws.on('close', () => {

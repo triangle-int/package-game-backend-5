@@ -1,0 +1,18 @@
+services:
+  package-dev-server:
+    build: .
+    env_file: .env
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://package_user:package_pass_isolated_99@package-isolated-db:5432/package_game_isolated?schema=public
+      ENABLE_DEV_LOGIN: 'true'
+      PORT: '3005'
+      WS_PORT: '3006'
+      RUN_DISCORD: 'no'
+      RUN_METRICS: 'no'
+    ports:
+      - '${DEV_BIND_ADDRESS:-127.0.0.1}:3005:3005'
+      - '${DEV_BIND_ADDRESS:-127.0.0.1}:3006:3006'
+    depends_on:
+      package-isolated-db:
+        condition: service_healthy

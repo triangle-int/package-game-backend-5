@@ -29,6 +29,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AnticheatModule } from './anticheat/anticheat.module';
 import { BoosterModule } from './booster/booster.module';
 import { PaymentModule } from './payment/payment.module';
+import { SoloMarketModule } from './solo-market/solo-market.module';
 
 const firebase_params = {
   type: firebaseConfig.type,
@@ -82,6 +83,7 @@ const ENV = process.env.NODE_ENV;
     AnticheatModule,
     BoosterModule,
     PaymentModule,
+    SoloMarketModule,
   ],
   providers: [
     {

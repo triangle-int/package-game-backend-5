@@ -1,0 +1,21 @@
+services:
+  package-isolated-db:
+    image: postgres:13
+    container_name: package_game_pg_isolated
+    environment:
+      POSTGRES_USER: package_user
+      POSTGRES_PASSWORD: package_pass_isolated_99
+      POSTGRES_DB: package_game_isolated
+    ports:
+      - "127.0.0.1:5439:5432"
+    volumes:
+      - package_game_isolated_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U package_user -d package_game_isolated"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  package_game_isolated_data:
+    name: package_game_isolated_data

@@ -1,13 +1,19 @@
 import Spec from 'pactum/src/models/Spec';
+import * as pactum from 'pactum';
 
 export const users = (spec: () => Spec) => {
   describe('Users', () => {
     describe('Get test tokens', () => {
-      it('should get firebase token', () =>
-        spec()
+      it('should get test token', () => {
+        if (process.env.E2E_USE_DEV_TOKEN === 'true') {
+          pactum.stash.addDataStore('userToken', 'dev_token:package_e2e_user');
+          return;
+        }
+        return spec()
           .get('/user/get-test-token')
           .expectStatus(200)
-          .stores('userToken', 'token'));
+          .stores('userToken', 'token');
+      });
 
       it('should generate beta token', () =>
         spec()

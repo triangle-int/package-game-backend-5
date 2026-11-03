@@ -1,11 +1,9 @@
 import {
-  CACHE_MANAGER,
+  BadRequestException,
   ForbiddenException,
-  Inject,
   Injectable,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Cache } from 'cache-manager';
 import { GameConfigService } from '../game-config/game-config.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CalculatePathDto, RemoveTruckScheduleDto } from './dto';
@@ -32,7 +30,6 @@ export class TruckService {
     private prisma: PrismaService,
     private gameConfig: GameConfigService,
     private config: ConfigService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private httpService: HttpService,
     private tasks: TaskService,
     private inventoryService: InventoryService,
@@ -45,11 +42,20 @@ export class TruckService {
     private boosters: BoosterService,
   ) {}
 
-  private async calculatePath(
-    dto: CalculatePathDto,
-    user: User,
-    cache = false,
-  ) {
+  private async calculatePath(dto: CalculatePathDto, user: User) {
+    // Scheduled deliveries call this service directly, bypassing DTO validation.
+    if (
+      !Number.isInteger(dto.resourceCount) ||
+      dto.resourceCount < 1 ||
+      dto.resourceCount > 2147483647
+    )
+      throw new BadRequestException('invalidResourceCount');
+    if (
+      !Number.isInteger(dto.truckType) ||
+      dto.truckType < 0 ||
+      dto.truckType > 2
+    )
+      throw new BadRequestException('invalidTruckType');
     const [buildingA, buildingB] = await Promise.all([
       this.prisma.building.findUnique({
         where: { id: dto.aId },
@@ -62,6 +68,12 @@ export class TruckService {
     if (buildingA == null || buildingB == null)
       throw new ForbiddenException('buildingNotFound');
 
+    if (
+      (buildingA.discriminator !== 'market' && buildingA.ownerId !== user.id) ||
+      (buildingB.discriminator !== 'market' && buildingB.ownerId !== user.id)
+    )
+      throw new ForbiddenException('buildingNotFound');
+
     if (!_.includes(['factory', 'storage', 'market'], buildingA.discriminator))
       throw new ForbiddenException('invalidStart');
 
@@ -69,8 +81,11 @@ export class TruckService {
       throw new ForbiddenException('invalidDestination');
 
     if (
-      buildingA.discriminator === 'factory' &&
-      buildingB.discriminator === 'market'
+      dto.aId === dto.bId ||
+      (buildingA.discriminator === 'factory' &&
+        buildingB.discriminator === 'market') ||
+      (buildingA.discriminator === 'market' &&
+        buildingB.discriminator === 'market')
     )
       throw new ForbiddenException('invalidTargets');
 
@@ -117,16 +132,11 @@ export class TruckService {
       cost,
     };
 
-    if (cache)
-      this.cacheManager.set(JSON.stringify(dto), route, {
-        ttl: 30000,
-      });
-
-    return route;
+    return { route, buildingA, buildingB };
   }
 
   async calculatePathCost(dto: CalculatePathDto, user: User) {
-    return this.calculatePath(dto, user, true);
+    return (await this.calculatePath(dto, user)).route;
   }
 
   async createTruck(
@@ -134,18 +144,38 @@ export class TruckService {
     user: User,
     scheduleId: number = null,
   ) {
-    const route =
-      (await this.cacheManager.get(JSON.stringify(dto as CalculatePathDto))) ??
-      ((await this.calculatePath(dto, user)) as any);
+    if (
+      dto.createSchedule &&
+      (!Number.isInteger(dto.interval) ||
+        dto.interval < 0 ||
+        dto.interval >= this.gameConfig.config.scheduleInterval.length)
+    )
+      throw new BadRequestException('invalidScheduleInterval');
+
+    // Recheck ownership and current booster prices at dispatch time.
+    const { route, buildingA, buildingB } = await this.calculatePath(dto, user);
 
     const now = new Date();
     const endTime = new Date(now.getTime() + route.duration * 1000);
 
     if (user.money < route.cost) throw new ForbiddenException('notEnoughMoney');
 
-    const buildingA = await this.prisma.building.findUnique({
-      where: { id: dto.aId },
-    });
+    if (
+      buildingA.discriminator === 'market' ||
+      buildingB.discriminator === 'market'
+    ) {
+      const item = this.gameConfig.config.items.find(
+        (candidate) =>
+          candidate.name === dto.resourceName && candidate.type === 'resource',
+      );
+      if (
+        !item ||
+        (buildingA.discriminator === 'market' &&
+          item.group !== buildingA.level) ||
+        (buildingB.discriminator === 'market' && item.group !== buildingB.level)
+      )
+        throw new ForbiddenException('invalidMarketResource');
+    }
 
     await this.factoryService.updateFactoryInventory(buildingA.id);
 
@@ -366,12 +396,13 @@ export class TruckService {
   }
 
   async removeTruckSchedule(dto: RemoveTruckScheduleDto, user: User) {
-    await this.prisma.truckSchedule.deleteMany({
+    const deleted = await this.prisma.truckSchedule.deleteMany({
       where: {
         id: dto.scheduleId,
         ownerId: user.id,
       },
     });
-    await this.schedules.removeSchedule(`truckSchedule_${dto.scheduleId}`);
+    if (deleted.count > 0)
+      await this.schedules.removeSchedule(`truckSchedule_${dto.scheduleId}`);
   }
 }

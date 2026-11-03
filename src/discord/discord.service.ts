@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {
   Routes,
   REST,
@@ -14,13 +14,20 @@ import { DiscordCommand } from './discord-command';
 export class DiscordService {
   private commands: DiscordCommand[] = [];
 
-  private weebhookClient: WebhookClient;
+  private webhookClient?: WebhookClient;
+  private readonly logger = new Logger(DiscordService.name);
 
   constructor(private config: ConfigService) {
-    this.weebhookClient = new WebhookClient({
-      id: this.config.get('DISCORD_WEBHOOK_ID'),
-      token: this.config.get('DISCORD_WEBHOOK_TOKEN'),
-    });
+    const id = this.config.get<string>('DISCORD_WEBHOOK_ID');
+    const token = this.config.get<string>('DISCORD_WEBHOOK_TOKEN');
+    const enabled = this.config.get('RUN_DISCORD') === 'yes';
+    if (enabled && id && token) {
+      this.webhookClient = new WebhookClient({ id, token });
+    } else if (enabled) {
+      this.logger.warn(
+        'Discord webhook is not configured; anticheat warnings will be skipped.',
+      );
+    }
 
     setTimeout(async () => await this.setupBot(), 1000);
   }
@@ -33,9 +40,12 @@ export class DiscordService {
 
     if (img != null) embed = embed.setImage(img);
 
-    await this.weebhookClient.send({
-      embeds: [embed],
-    });
+    if (!this.webhookClient) return;
+    try {
+      await this.webhookClient.send({ embeds: [embed] });
+    } catch (error) {
+      this.logger.warn(`Unable to send Discord warning: ${error}`);
+    }
   }
 
   private async setupBot() {

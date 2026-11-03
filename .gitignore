@@ -36,6 +36,7 @@ lerna-debug.log*
 
 .env
 .env.*
+!.env.example
 /src/serviceAccount.json
 /src/firebase-client/firebase-client-config.json
 /src/pusherOptions.json

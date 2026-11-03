@@ -36,12 +36,13 @@ describe('App e2e', () => {
     app.useGlobalInterceptors(new BigIntInterceptor());
 
     await app.init();
-    await app.listen(3333);
+    await app.listen(0, '127.0.0.1');
 
     const prisma = app.get(PrismaService);
     await prisma.cleanDb();
 
-    pactum.request.setBaseUrl('http://localhost:3333');
+    const address = app.getHttpServer().address();
+    pactum.request.setBaseUrl(`http://127.0.0.1:${address.port}`);
   });
 
   afterAll(() => {
@@ -62,7 +63,7 @@ describe('App e2e', () => {
   businesses(spec, getApp);
   factories(spec);
   inventory(spec);
-  markets(spec);
+  markets(spec, getApp);
   satellites(spec);
   trucks(spec, getApp);
   trades(spec, getApp);
